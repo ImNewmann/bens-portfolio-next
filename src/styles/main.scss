@@ -1,0 +1,20 @@
+@import 'base/variables';
+@import 'base/fonts.scss';
+@import 'base/breakpoints';
+@import 'base/normalize';
+@import 'base/base';
+@import 'base/global';
+
+@import 'components/nav';
+@import 'components/name';
+@import 'components/title';
+@import 'components/cursor';
+@import 'components/projectsList';
+@import 'components/projectBackground';
+@import 'components/projectThumbnail';
+@import 'components/counter';
+@import 'components/project';
+@import 'components/projectDescription';
+@import 'components/arrow';
+@import 'components/heightBlock';
+@import 'components/aboutMe';
