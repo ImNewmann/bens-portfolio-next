@@ -1,38 +1,37 @@
-import { useEffect, useState, useRef, memo } from 'react';
-import { useRouter } from 'next/router';
+import { useEffect, useState, useRef, useContext } from 'react';
+import { SiteContext } from '@/contexts';
 import Link from 'next/link';
 import { Name } from './Name';
-import NavLinks from './NavLinks';
+import { NavLinks } from './NavLinks';
+import gsap from 'gsap';
 
 export const Nav = () => {
-    const [state, setState] = useState({
-        shouldAnimIn: false,
-        shouldAnimOut: false,
-    });
-
+    const [context] = useContext(SiteContext);
     const nameRef = useRef();
-    const router = useRouter();
+    const navLinksRef = useRef();
 
     const handleNavAnimations = (fadeOutDelay, fadeInDelay) => {
         animOut(fadeOutDelay);
         animIn(fadeInDelay);
     };
 
-    const animIn = (delay) => {
+    const animIn = (delay = 1800) => {
+        const animInTL = gsap.timeline();
+
         setTimeout(() => {
-            setState({
-                shouldAnimIn: true,
-                shouldAnimOut: false,
-            });
+            animInTL
+                .fromTo(nameRef.current, 0.4, { autoAlpha: 0, xPercent: -50, skewX: 16 }, { autoAlpha: 0.9, xPercent: 0, skewX: 0, ease: 'power3.out' }, 0)
+                .fromTo(navLinksRef.current, 0.4, { autoAlpha: 0, xPercent: 50, skewX: -16 }, { autoAlpha: 1, xPercent: 0, skewX: 0, ease: 'power3.out' }, 0);
         }, delay);
     };
 
-    const animOut = (delay) => {
+    const animOut = (delay = 200) => {
+        const animOutTL = gsap.timeline();
+
         setTimeout(() => {
-            setState({
-                shouldAnimIn: false,
-                shouldAnimOut: true,
-            });
+            animOutTL
+                .to(nameRef.current, 0.4, { autoAlpha: 0, xPercent: -50, skewX: 16, ease: 'power3.out' }, 0)
+                .to(navLinksRef.current, 0.4, { autoAlpha: 0, xPercent: 50, skewX: -16, ease: 'power3.out' }, 0);
         }, delay);
     };
 
@@ -41,19 +40,15 @@ export const Nav = () => {
     }, []);
 
     useEffect(() => {
-        router.events.on('routeChangeStart', () => handleNavAnimations(0, 1800));
-
-        return () => {
-            router.events.off('routeChangeStart', handleNavAnimations);
-        };
-    }, [router]);
+        if (context.animatingBetweenPages) handleNavAnimations();
+    }, [context.animatingBetweenPages]);
 
     return (
         <nav>
             <Link href="/">
-                <Name ref={nameRef} shouldAnimIn={state.shouldAnimIn} shouldAnimOut={state.shouldAnimOut} />
+                <Name ref={nameRef} onClick={handleNavAnimations} />
             </Link>
-            <NavLinks shouldAnimIn={state.shouldAnimIn} shouldAnimOut={state.shouldAnimOut} />
+            <NavLinks ref={navLinksRef} />
         </nav>
     );
 };

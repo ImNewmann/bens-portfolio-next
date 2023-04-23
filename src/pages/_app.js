@@ -12,6 +12,7 @@ export default function App({ Component, pageProps }) {
     const [context, setContext] = useState({
         introFinished: false,
         isTouchDevice: false,
+        animatingBetweenPages: false,
         theme: 'dark-theme',
     });
 

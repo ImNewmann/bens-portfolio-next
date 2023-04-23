@@ -13,11 +13,16 @@
         font-size: 30px;
     }
 
-    &--max {
+    &__max,
+    &__line {
         font-size: 3vw;
 
         @include breakpoint(tablet) {
             font-size: 15px;
         }
+    }
+
+    &__line {
+        padding: 0 5px;
     }
 }

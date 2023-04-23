@@ -22,11 +22,26 @@ export default function About() {
             .to(aboutBG.current, 1 * speed, { autoAlpha: 1 }, 0.4 + delay)
             .from(aboutText.current, 0.6, { xPercent: 10, scaleX: 1.2, autoAlpha: 0, ease: 'power3.out' }, 0.8 + delay)
             .from(link.current, 0.6, { autoAlpha: 0, xPercent: -10, ease: 'power3.out' }, 1 + delay)
-            .fromTo(backLink.current, 0.4, { autoAlpha: 0, xPercent: 50 }, { autoAlpha: 1, xPercent: 0, ease: 'power3.out' }, 1, 2);
+            .fromTo(backLink.current, 0.4, { autoAlpha: 0, xPercent: 50 }, { autoAlpha: 1, xPercent: 0, ease: 'power3.out' }, 1, 2)
+            .eventCallback('onComplete', () => {
+                setContext((prevContext) => {
+                    return {
+                        ...prevContext,
+                        animatingBetweenPages: false,
+                    };
+                });
+            });
     };
 
     const animOut = () => {
         const aboutTL = gsap.timeline();
+
+        setContext((prevContext) => {
+            return {
+                ...prevContext,
+                animatingBetweenPages: true,
+            };
+        });
 
         aboutTL
             .to(link.current, 0.6, { autoAlpha: 0, xPercent: 10, ease: 'power3.out' }, 0.4)
@@ -41,9 +56,12 @@ export default function About() {
     };
 
     useEffect(() => {
-        setContext({
-            ...context,
-            theme: 'light-theme',
+        setContext((prevContext) => {
+            return {
+                ...prevContext,
+                animatingBetweenPages: true,
+                theme: 'light-theme',
+            };
         });
 
         animIn();

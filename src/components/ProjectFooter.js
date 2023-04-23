@@ -1,11 +1,13 @@
 import gsap from 'gsap';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { ProjectBackground } from './ProjectBackground';
 import { Title } from './Title';
 import { ArrowLink } from './ArrowLink';
+import { SiteContext } from '@/contexts';
 
 export const ProjectFooter = ({ image, title, nextProjectLink }) => {
+    const [context, setContext] = useContext(SiteContext);
     const [animatableElements, setAnimatableElements] = useState();
     const [animationActive, setAnimationActive] = useState(false);
     const router = useRouter();
@@ -48,6 +50,13 @@ export const ProjectFooter = ({ image, title, nextProjectLink }) => {
     const animateOut = () => {
         const components = animatableElements;
         const tl = gsap.timeline();
+
+        setContext((prevContext) => {
+            return {
+                ...prevContext,
+                animatingBetweenPages: true,
+            };
+        });
 
         setAnimationActive(true);
         tl.set(components.body, { overflow: 'hidden' }, 0.2)

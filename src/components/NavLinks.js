@@ -1,26 +1,12 @@
-import gsap from 'gsap';
-import { useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { forwardRef } from 'react';
 import Link from 'next/link';
 
-export default function NavLinks({ shouldAnimIn, shouldAnimOut }) {
+export const NavLinks = forwardRef(({}, ref) => {
     const router = useRouter();
-    const navLinksRef = useRef();
-
-    const animIn = () => {
-        gsap.fromTo(navLinksRef.current, 0.4, { autoAlpha: 0, xPercent: 50, skewX: -16 }, { autoAlpha: 1, xPercent: 0, skewX: 0, ease: 'power3.out' });
-    };
-    const animOut = () => {
-        gsap.to(navLinksRef.current, 0.4, { autoAlpha: 0, xPercent: 50, skewX: -16, ease: 'power3.out' }, 0);
-    };
-
-    useEffect(() => {
-        if (shouldAnimIn) animIn();
-        if (shouldAnimOut) animOut();
-    }, [shouldAnimIn, shouldAnimOut]);
 
     return (
-        <div className="nav-links" ref={navLinksRef}>
+        <div className="nav-links" ref={ref}>
             <ul>
                 <li className={`nav-links__item link ${router.asPath === '/about' ? 'active' : ''}`}>
                     <Link href="/about">About Me</Link>
@@ -31,4 +17,4 @@ export default function NavLinks({ shouldAnimIn, shouldAnimOut }) {
             </ul>
         </div>
     );
-}
+});

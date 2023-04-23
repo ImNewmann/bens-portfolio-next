@@ -365,6 +365,13 @@ export default function Home() {
 
         removeScroll();
 
+        setContext((prevContext) => {
+            return {
+                ...prevContext,
+                animatingBetweenPages: true,
+            };
+        });
+
         animateTL
             .to(components.currentTitleBase, 0.4, { scale: 1, ease: 'power3.out' }, 0.2)
             .to(components.currentTitleOutline, 0.4, { scale: 1, ease: 'power3.out' }, 0.2)
@@ -387,9 +394,12 @@ export default function Home() {
             animElems: animatableElements,
         });
 
-        setContext({
-            ...context,
-            theme: 'dark-theme',
+        setContext((prevContext) => {
+            return {
+                ...prevContext,
+                animatingBetweenPages: false,
+                theme: 'dark-theme',
+            };
         });
     }, []);
 

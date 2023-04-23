@@ -5,7 +5,6 @@ import { SiteContext } from '@/contexts';
 import { ProjectHeader } from '@/components/ProjectHeader';
 import { ProjectDescription } from '@/components/ProjectDescription';
 import { ProjectFooter } from '@/components/ProjectFooter';
-import getIndex from '@/utilities/getIndex';
 
 export default function Post({ postData, nextPostData }) {
     const [context, setContext] = useContext(SiteContext);
@@ -15,9 +14,12 @@ export default function Post({ postData, nextPostData }) {
     };
 
     useEffect(() => {
-        setContext({
-            ...context,
-            theme: 'dark-theme',
+        setContext((prevContext) => {
+            return {
+                ...prevContext,
+                animatingBetweenPages: false,
+                theme: 'dark-theme',
+            };
         });
 
         observe('.fade-in', fadeIn, 0.3);
