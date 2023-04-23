@@ -24,6 +24,7 @@ export const ProjectFooter = ({ image, title, nextProjectLink }) => {
             nextProjectTitle: nextProjectTitle.current.childNodes[0],
             nextProjectBG: nextProjectBG.current,
             nextProjectBGScale: nextProjectBG.current.childNodes[0],
+            nextProjectBGBlur: nextProjectBG.current.childNodes[1],
             nextLink: nextLink.current,
             heightBlock: heightBlock.current,
         };
@@ -58,14 +59,17 @@ export const ProjectFooter = ({ image, title, nextProjectLink }) => {
             };
         });
 
+        window.scroll(0, document.body.scrollHeight);
         setAnimationActive(true);
-        tl.set(components.body, { overflow: 'hidden' }, 0.2)
+
+        tl.to(components.nextLink, 0.4, { xPercent: -10, ease: 'power3.out' }, 0)
+            .to(components.nextLink, 0.7, { autoAlpha: 0, xPercent: 50, ease: 'power3.out' }, 0.2)
+            .set(components.body, { overflow: 'hidden' }, 0.2)
             .to(components.nextProjectBGScale, 1.6, { scale: 1, autoAlpha: 1, rotation: 0, ease: 'power3.out' }, 0.2)
             .to(components.nextProjectBG, 1.6, { autoAlpha: 0.9, ease: 'power3.out' }, 0.2)
-            .to(components.nextProjectTitle, 1, { autoAlpha: 1, ease: 'power3.out' }, 0.8)
-            .to(components.heightBlock, 0.6, { y: 1, ease: 'power3.out' }, 1.4)
-            .to(components.nextLink, 0.4, { xPercent: -10, ease: 'power3.out' }, 0)
-            .to(components.nextLink, 0.7, { autoAlpha: 0, xPercent: 50, ease: 'power3.out' }, 0.2)
+            .to(components.nextProjectTitle, 1, { autoAlpha: 1, ease: 'power3.out' }, 1.4)
+            .to(components.heightBlock, 0.6, { y: 1, ease: 'power3.out' }, 1.8)
+            .set(components.nextProjectBGBlur, { visibility: 'hidden' }, 1.8)
             .eventCallback('onComplete', () => {
                 setAnimationActive(false);
                 components.body.style.overflow = 'inherit';

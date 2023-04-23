@@ -15,7 +15,7 @@ export const Nav = () => {
         animIn(fadeInDelay);
     };
 
-    const animIn = (delay = 1800) => {
+    const animIn = (delay = 1600) => {
         const animInTL = gsap.timeline();
 
         setTimeout(() => {

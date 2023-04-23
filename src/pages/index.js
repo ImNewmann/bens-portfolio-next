@@ -376,12 +376,12 @@ export default function Home() {
             .to(components.currentTitleBase, 0.4, { scale: 1, ease: 'power3.out' }, 0.2)
             .to(components.currentTitleOutline, 0.4, { scale: 1, ease: 'power3.out' }, 0.2)
             .to(components.currentProjectThumbnail, 0.6, { autoAlpha: 0, skewX: -7, xPercent: 20, ease: 'power3.out' }, 0.2)
-            .to(components.currentTitleBase, 0.6, { autoAlpha: 0, scale: 1, ease: 'power3.out' }, 0.2)
+            .to(components.currentTitleBase, 0.8, { autoAlpha: 0, scale: 1, ease: 'power3.out' }, 0.2)
             .to(backgroundImageWrapper, 1.2, { autoAlpha: 0.9, ease: 'power3.out' }, 0.2) // BG SCALE
             .to(backgroundImageClear, 1.8, { scale: 1, autoAlpha: 1, ease: 'power3.out' }, 0.2) //BLUR OUT
             .to(components.counter, 0.4, { autoAlpha: 0, ease: 'power3.out' }, 0.2)
-            .to(components.currentTitleBase, 1.6, { autoAlpha: 1, ease: 'power3.out' }, 1) // TITLE FILL
-            .to(components.heightBlock, 0.6, { transform: 'translateY(1px)', ease: 'power3.out' }, 1.4) // HEIGHT
+            .to(components.currentTitleBase, 1.6, { autoAlpha: 1, ease: 'power3.out' }, 1.4) // TITLE FILL
+            .to(components.heightBlock, 0.6, { transform: 'translateY(1px)', ease: 'power3.out' }, 1.8) // HEIGHT
             .eventCallback('onComplete', () => router.push(`/${nextUrl}`));
     };
 
