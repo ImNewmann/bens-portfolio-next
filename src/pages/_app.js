@@ -1,4 +1,5 @@
 import '@/styles/main.scss';
+import { Analytics } from '@vercel/analytics/react';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -56,6 +57,7 @@ export default function App({ Component, pageProps }) {
                     <Cursor />
                 </div>
             </SiteContext.Provider>
+            <Analytics />
         </>
     );
 }
